@@ -1,0 +1,7 @@
+# requirements.txt
+# Simple requirements for Groq-based chatbot
+ 
+streamlit
+groq
+python-dotenv
+ 
