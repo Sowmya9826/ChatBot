@@ -1,18 +1,15 @@
 import os
 import streamlit as st
-from dotenv import load_dotenv
 from groq import Groq
 
-# Load environment variables
-load_dotenv()
-
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+# Read API key from Streamlit secrets
+GROQ_API_KEY = st.secrets.get("GROQ_API_KEY")
 
 st.set_page_config(page_title="Simple Chatbot", page_icon="🤖")
 st.title("🤖 Simple Groq Chatbot")
 
 if not GROQ_API_KEY:
-    st.error("GROQ_API_KEY not found. Add it to .env or Render Environment Variables.")
+    st.error("GROQ_API_KEY not found. Add it to .streamlit/secrets.toml")
     st.stop()
 
 client = Groq(api_key=GROQ_API_KEY)
