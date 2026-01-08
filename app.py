@@ -3,7 +3,16 @@ import streamlit as st
 from groq import Groq
 
 # Read API key from Streamlit secrets
-GROQ_API_KEY = st.secrets.get("GROQ_API_KEY", None) or os.getenv("GROQ_API_KEY")
+
+try:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+except Exception:
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+
+if not GROQ_API_KEY:
+    st.error("GROQ_API_KEY not found. Add it in Render Environment Variables.")
+    st.stop()
+
 
 st.set_page_config(page_title="Simple Chatbot", page_icon="🤖")
 st.title("🤖 Simple Groq Chatbot")
